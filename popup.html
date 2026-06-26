@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JobFocus Assist</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="popup-shell">
+      <header class="header">
+        <div class="brand">
+          <img
+            class="brand-icon"
+            alt=""
+            src="assets/brand/jobfocus-assist-icon-32.png"
+            width="32"
+            height="32"
+          />
+          <div class="brand-copy">
+            <div class="brand-title">JobFocus Assist</div>
+            <div class="brand-subtitle">Cleaner LinkedIn Job Search</div>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <div id="status-pill" class="status-pill status-pill--active" aria-live="polite">
+            <span class="status-pill__dot" aria-hidden="true"></span>
+            <span id="status-pill-label">Active</span>
+          </div>
+
+          <div class="menu-anchor">
+            <button id="menu-button" class="icon-button" type="button" aria-label="Open status menu" aria-expanded="false">
+              <span class="icon" data-icon="moreVertical"></span>
+            </button>
+
+            <div id="menu-panel" class="menu-panel" hidden role="menu" aria-label="Extension status">
+              <button id="menu-active" class="menu-item" type="button" role="menuitem">
+                <span class="menu-item__icon" data-icon="check"></span>
+                <span class="menu-item__label">Active</span>
+              </button>
+              <button id="menu-pause" class="menu-item" type="button" role="menuitem">
+                <span class="menu-item__icon" data-icon="pause"></span>
+                <span class="menu-item__label">Pause extension</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="main">
+        <section class="section">
+          <div class="section-heading">Visual rules</div>
+
+          <article class="rule-card">
+            <div class="rule-card__lead">
+              <div class="rule-badge rule-badge--viewed" aria-hidden="true">
+                <span class="icon icon--small" data-icon="eye"></span>
+              </div>
+              <div>
+                <div class="rule-title">Viewed jobs</div>
+                <div class="rule-copy">Mute LinkedIn viewed cards.</div>
+              </div>
+            </div>
+
+            <div class="radio-group" data-group="viewedEnabled">
+              <label class="radio-option">
+                <input type="radio" name="viewedEnabled" value="true" checked />
+                <span>On</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="viewedEnabled" value="false" />
+                <span>Off</span>
+              </label>
+            </div>
+          </article>
+
+          <article class="rule-card">
+            <div class="rule-card__lead">
+              <div class="rule-badge rule-badge--applied" aria-hidden="true">
+                <span class="icon icon--small" data-icon="badgeCheck"></span>
+              </div>
+              <div>
+                <div class="rule-title">Applied jobs</div>
+                <div class="rule-copy">Highlight LinkedIn applied cards.</div>
+              </div>
+            </div>
+
+            <div class="radio-group" data-group="appliedEnabled">
+              <label class="radio-option">
+                <input type="radio" name="appliedEnabled" value="true" checked />
+                <span>On</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="appliedEnabled" value="false" />
+                <span>Off</span>
+              </label>
+            </div>
+          </article>
+
+        </section>
+
+        <section class="section section--about">
+          <div class="section-heading">About</div>
+          <div class="about-actions">
+            <button class="about-button" type="button" data-action="github">
+              <span class="icon icon--small" data-icon="github"></span>
+              <span>GitHub</span>
+            </button>
+            <button class="about-button" type="button" data-action="star">
+              <span class="icon icon--small" data-icon="star"></span>
+              <span>Star</span>
+            </button>
+            <button class="about-button" type="button" data-action="feedback">
+              <span class="icon icon--small" data-icon="messageCircle"></span>
+              <span>Feedback</span>
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
