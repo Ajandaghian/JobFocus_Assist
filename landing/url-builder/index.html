@@ -3,40 +3,45 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>LinkedIn Search Link Builder</title>
+    <title>LinkedIn Jobs URL Builder</title>
     <meta
       name="description"
-      content="Build deterministic LinkedIn Jobs search links from keyword groups, exclusions, location, recency, and sorting."
+      content="Build LinkedIn Jobs search URLs from keyword groups, exclusions, geoId, recency, and sort. Client-side only."
     >
     <link rel="stylesheet" href="./styles.css?v=advanced-boolean-2">
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="./" aria-label="LinkedIn Search Link Builder home">
+      <a class="brand" href="./" aria-label="LinkedIn Jobs URL Builder home">
         <span class="brand-mark">in</span>
-        <span>LinkedIn Search Link Builder</span>
+        <span>LinkedIn Jobs URL Builder</span>
       </a>
       <nav class="topbar-signals" aria-label="Page benefits">
-        <span><img src="./assets/icons/zap.svg" alt=""> Faster searches</span>
-        <span><img src="./assets/icons/link-2.svg" alt=""> Shareable links</span>
         <span><img src="./assets/icons/shield-check.svg" alt=""> Client-side only</span>
+        <span><img src="./assets/icons/lock.svg" alt=""> No saved searches</span>
+        <span><img src="./assets/icons/link-2.svg" alt=""> Shareable links</span>
       </nav>
     </header>
 
     <main>
       <section class="hero" aria-labelledby="page-title">
-        <h1 id="page-title">Build LinkedIn search links faster</h1>
-        <p>Combine keyword groups, exclusions, location, recency, and sorting into one shareable LinkedIn Jobs URL.</p>
+        <div class="hero-eyebrow">
+          <span>Live preview</span>
+          <span>No tracking</span>
+          <span>No saved data</span>
+        </div>
+        <h1 id="page-title">Build LinkedIn Jobs search URLs</h1>
+        <p>Use keyword groups, exclusions, geoId, recency, and sort to create a LinkedIn Jobs link you can copy or open immediately.</p>
       </section>
 
-      <section class="builder-card builder-layout" aria-label="LinkedIn URL builder">
+      <section class="builder-layout" aria-label="LinkedIn URL builder">
         <form class="builder-inputs" id="builder-form" novalidate>
           <section class="builder-row keywords-row" aria-labelledby="keywords-title">
             <aside class="row-label">
               <span class="row-icon"><img src="./assets/icons/search.svg" alt=""></span>
               <div>
                 <h2 id="keywords-title">Keywords</h2>
-                <p>Create Boolean groups without storing searches.</p>
+                <p>Add groups and exclusions to shape the search.</p>
               </div>
             </aside>
 
@@ -44,7 +49,7 @@
               <div class="mode-line">
                 <div>
                   <span class="field-label">Advanced Boolean groups</span>
-                  <p>Terms inside a group use that group's AND/OR mode. Groups are then joined together.</p>
+                  <p>Terms inside a group use that group's AND/OR mode. Empty groups are ignored, then the finished groups are joined together.</p>
                 </div>
                 <div class="segmented compact-segmented" role="radiogroup" aria-label="Join groups with">
                   <label>
@@ -70,14 +75,14 @@
               <div class="term-block">
                 <label class="field-label" for="exclude-input">Exclude keywords</label>
                 <input id="exclude-input" class="term-input" type="text" autocomplete="off" placeholder="Type an exclusion and press Enter">
-                <p class="hint">Optional. Exclusions are appended as NOT terms.</p>
+                <p class="hint">Optional. Exclusions are appended as <code>NOT</code> terms.</p>
                 <div class="chips" id="exclude-chips" aria-live="polite"></div>
                 <p class="chip-count" id="exclude-hint"></p>
               </div>
 
               <div class="boolean-preview">
                 <span class="field-label">Boolean preview</span>
-                <code id="keyword-preview">Add a keyword to start.</code>
+                <code id="keyword-preview">Add keywords to preview the Boolean structure.</code>
               </div>
             </div>
           </section>
@@ -86,21 +91,18 @@
             <aside class="row-label">
               <span class="row-icon"><img src="./assets/icons/map-pin.svg" alt=""></span>
               <div>
-                <h2 id="location-title">Location</h2>
-                <p>Set where you want to find jobs.</p>
+                <h2 id="location-title">Location code</h2>
+                <p>Paste the LinkedIn geoId for the location you want to target.</p>
               </div>
             </aside>
 
-            <div class="row-main location-grid">
-              <label>
-                <span class="field-label">Location label</span>
-                <input id="location-label" type="text" value="United States" autocomplete="off">
-              </label>
-              <label>
+            <div class="row-main location-stack">
+              <label class="field-block">
                 <span class="field-label">geoId from LinkedIn URL</span>
                 <input id="geo-id" type="text" inputmode="numeric" value="103644278" autocomplete="off">
                 <span class="error-text" id="geo-error" role="alert"></span>
               </label>
+              <p class="field-note">Only <code>geoId</code> affects the URL. Copy it from LinkedIn's location dropdown or the search URL.</p>
             </div>
           </section>
 
@@ -152,24 +154,20 @@
           <div class="generated-head">
             <span class="row-icon success"><img src="./assets/icons/link-2.svg" alt=""></span>
             <div>
-              <h2 id="output-title">Generated link</h2>
-              <p>Auto-updates from your inputs.</p>
+              <h2 id="output-title">Live link preview</h2>
+              <p>Updates as you type. Copy when it looks right.</p>
             </div>
           </div>
 
-          <button class="primary-button" id="generate-button" type="button">
-            <img src="./assets/icons/zap.svg" alt="">
-            Generate Link
-          </button>
-
-          <div class="url-card">
+          <div class="preview-slab">
             <div class="url-card-head">
-              <label for="generated-url">Generated URL</label>
-              <span class="status" id="status-text">Need keywords</span>
+              <label for="generated-url">LinkedIn URL</label>
+              <span class="status" id="status-text" aria-live="polite">Need keywords</span>
             </div>
-            <textarea id="generated-url" readonly rows="5" spellcheck="false"></textarea>
+            <p class="preview-copy">This is the exact LinkedIn Jobs URL. Copy it or open it to verify the filters.</p>
+            <textarea id="generated-url" readonly rows="5" spellcheck="false" aria-label="Generated LinkedIn Jobs URL" placeholder="Your generated LinkedIn Jobs URL will appear here."></textarea>
             <div class="action-grid">
-              <button id="copy-button" type="button"><img src="./assets/icons/copy.svg" alt=""> Copy</button>
+              <button id="copy-button" type="button"><img src="./assets/icons/copy.svg" alt=""> Copy link</button>
               <a id="open-link" href="#" target="_blank" rel="noreferrer"><img src="./assets/icons/external-link.svg" alt=""> Open in LinkedIn</a>
             </div>
           </div>
@@ -180,51 +178,55 @@
       </section>
 
       <section class="guide" id="geo-guide" aria-labelledby="guide-title">
-        <div class="guide-heading">
-          <span class="row-icon"><img src="./assets/icons/circle-help.svg" alt=""></span>
-          <div>
-            <h2 id="guide-title">How to find geoId <span>(3 steps)</span></h2>
-          </div>
-        </div>
-
-        <div class="geo-steps">
-          <article class="geo-step">
-            <span class="step-number">1</span>
-            <strong>Open LinkedIn Jobs</strong>
-            <p>Go to linkedin.com/jobs and start a search.</p>
-            <div class="mini-browser">
-              <span class="brand-mark small">in</span>
-              <span>Jobs</span>
-              <span>software engineer</span>
+        <details class="geo-help">
+          <summary class="guide-heading">
+            <span class="row-icon"><img src="./assets/icons/circle-help.svg" alt=""></span>
+            <div>
+              <h2 id="guide-title">How to find geoId <span>(3 steps)</span></h2>
+              <p>Open this only if you need help finding the location code.</p>
             </div>
-          </article>
+            <span class="guide-summary-copy">Show steps</span>
+          </summary>
 
-          <article class="geo-step">
-            <span class="step-number">2</span>
-            <strong>Choose a location</strong>
-            <p>Use the location dropdown and select a country, region, or city.</p>
-            <div class="mini-select">United States <img src="./assets/icons/x.svg" alt=""></div>
-          </article>
+          <div class="geo-steps">
+            <article class="geo-step">
+              <span class="step-number">1</span>
+              <strong>Open LinkedIn Jobs</strong>
+              <p>Go to linkedin.com/jobs and start a search.</p>
+              <div class="mini-browser">
+                <span class="brand-mark small">in</span>
+                <span>Jobs</span>
+                <span>software engineer</span>
+              </div>
+            </article>
 
-          <article class="geo-step">
-            <span class="step-number">3</span>
-            <strong>Copy the geoId</strong>
-            <p>Look at the URL and copy the value after <code>geoId=</code>.</p>
-            <div class="mini-url">...&amp;geoId=<mark>103644278</mark>&amp;f_TPR=...</div>
-          </article>
+            <article class="geo-step">
+              <span class="step-number">2</span>
+              <strong>Choose a location</strong>
+              <p>Use the location dropdown and select a country, region, or city.</p>
+              <div class="mini-select">United States <img src="./assets/icons/x.svg" alt=""></div>
+            </article>
 
-          <figure class="guide-visual">
-            <img class="guide-art" src="./assets/geoid-guide.png" alt="Browser URL illustration highlighting a LinkedIn geoId parameter">
-            <figcaption>
-              <strong>That's your geoId:</strong> <mark>103644278</mark>
-            </figcaption>
-          </figure>
-        </div>
+            <article class="geo-step">
+              <span class="step-number">3</span>
+              <strong>Copy the geoId</strong>
+              <p>Look at the URL and copy the value after <code>geoId=</code>.</p>
+              <div class="mini-url">...&amp;geoId=<mark>103644278</mark>&amp;f_TPR=...</div>
+            </article>
+
+            <figure class="guide-visual">
+              <img class="guide-art" src="./assets/geoid-guide.png" alt="Browser URL illustration highlighting a LinkedIn geoId parameter">
+              <figcaption>
+                <strong>That's your geoId:</strong> <mark>103644278</mark>
+              </figcaption>
+            </figure>
+          </div>
+        </details>
       </section>
 
       <footer class="footer-note">
         <img src="./assets/icons/shield-check.svg" alt="">
-        <span>Public LinkedIn search URLs only. Built client-side with no stored job data.</span>
+        <span>Public LinkedIn search URLs only. Built client-side with no stored job data or search history.</span>
       </footer>
     </main>
 

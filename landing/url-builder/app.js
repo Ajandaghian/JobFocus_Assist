@@ -6,11 +6,10 @@
     groups: [{ id: 1, mode: "OR", terms: [] }],
     groupJoin: "AND",
     excludeTerms: [],
-    locationLabel: "United States",
     geoId: "103644278",
     recencyDays: 7,
     sortBy: "DD",
-    lastGeneratedUrl: "",
+    lastCopiedUrl: "",
   };
 
   let nextGroupId = 2;
@@ -24,7 +23,6 @@
     excludeChips: document.querySelector("#exclude-chips"),
     excludeHint: document.querySelector("#exclude-hint"),
     keywordPreview: document.querySelector("#keyword-preview"),
-    locationLabel: document.querySelector("#location-label"),
     geoId: document.querySelector("#geo-id"),
     geoError: document.querySelector("#geo-error"),
     recencyCopy: document.querySelector("#recency-copy"),
@@ -32,11 +30,12 @@
     customDays: document.querySelector("#custom-days"),
     sortCopy: document.querySelector("#sort-copy"),
     statusText: document.querySelector("#status-text"),
-    generateButton: document.querySelector("#generate-button"),
     generatedUrl: document.querySelector("#generated-url"),
     copyButton: document.querySelector("#copy-button"),
     openLink: document.querySelector("#open-link"),
     resetButton: document.querySelector("#reset-button"),
+    geoHelp: document.querySelector(".geo-help"),
+    geoHelpLabel: document.querySelector(".guide-summary-copy"),
   };
 
   function normalizeTerm(term) {
@@ -220,21 +219,24 @@
 
     if (errors.length > 0) {
       elements.statusText.textContent = errors[0];
-      elements.generateButton.disabled = true;
       elements.copyButton.disabled = true;
       elements.openLink.classList.add("is-disabled");
+      elements.openLink.setAttribute("aria-disabled", "true");
+      elements.openLink.setAttribute("tabindex", "-1");
+      elements.copyButton.innerHTML = '<img src="./assets/icons/copy.svg" alt=""> Copy link';
       return;
     }
 
-    const isGenerated = state.lastGeneratedUrl === url;
-    elements.statusText.textContent = isGenerated ? "Ready to share" : "Preview ready";
-    elements.statusText.classList.add(isGenerated ? "ready" : "dirty");
-    elements.generateButton.disabled = false;
+    const isCopied = state.lastCopiedUrl === url;
+    elements.statusText.textContent = isCopied ? "Copied" : "Preview ready";
+    elements.statusText.classList.add(isCopied ? "copied" : "ready");
     elements.copyButton.disabled = false;
     elements.openLink.classList.remove("is-disabled");
-    elements.generateButton.innerHTML = isGenerated
-      ? '<img src="./assets/icons/check.svg" alt=""> Link Ready'
-      : '<img src="./assets/icons/zap.svg" alt=""> Generate Link';
+    elements.openLink.setAttribute("aria-disabled", "false");
+    elements.openLink.removeAttribute("tabindex");
+    elements.copyButton.innerHTML = isCopied
+      ? '<img src="./assets/icons/check.svg" alt=""> Copied'
+      : '<img src="./assets/icons/copy.svg" alt=""> Copy link';
   }
 
   function render() {
@@ -273,7 +275,6 @@
       state[key] = fresh[key];
     });
     nextGroupId = 2;
-    elements.locationLabel.value = state.locationLabel;
     elements.geoId.value = state.geoId;
     elements.customDays.value = "14";
     elements.customDaysWrap.classList.remove("is-visible");
@@ -314,11 +315,6 @@
     render();
   });
 
-  elements.locationLabel.addEventListener("input", () => {
-    state.locationLabel = elements.locationLabel.value;
-    render();
-  });
-
   elements.geoId.addEventListener("input", () => {
     state.geoId = elements.geoId.value.trim();
     render();
@@ -326,13 +322,6 @@
 
   elements.customDays.addEventListener("input", () => {
     state.recencyDays = Number(elements.customDays.value);
-    render();
-  });
-
-  elements.generateButton.addEventListener("click", () => {
-    const errors = getValidation();
-    if (errors.length > 0) return;
-    state.lastGeneratedUrl = buildLinkedInUrl();
     render();
   });
 
@@ -348,10 +337,18 @@
       document.execCommand("copy");
     }
 
-    state.lastGeneratedUrl = elements.generatedUrl.value;
-    elements.statusText.textContent = "Copied";
-    elements.statusText.classList.add("copied");
+    state.lastCopiedUrl = elements.generatedUrl.value;
+    render();
   });
+
+  if (elements.geoHelp && elements.geoHelpLabel) {
+    const syncGeoHelpLabel = () => {
+      elements.geoHelpLabel.textContent = elements.geoHelp.open ? "Hide steps" : "Show steps";
+    };
+
+    elements.geoHelp.addEventListener("toggle", syncGeoHelpLabel);
+    syncGeoHelpLabel();
+  }
 
   render();
 })();
