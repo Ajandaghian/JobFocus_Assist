@@ -29,6 +29,14 @@ LinkedIn is the source of truth. The extension should read visible page text/sta
 - Avoid network calls.
 - Avoid broad permissions; request only what the extension needs for LinkedIn jobs pages.
 
+## High-Level Structure
+
+- `manifest.json`, `content-script.js`, `content.css`, `popup.html`, `popup.css`, and `popup.js` are the Chrome extension MVP.
+- `privacy.html` and `docs/` hold public/privacy documentation.
+- `assets/brand/` and `assets/store/` hold reusable brand and listing assets.
+- `landing/` holds static public pages that can be deployed independently, including `landing/url-builder/` for the LinkedIn Jobs search URL builder.
+- When adding, moving, or removing top-level product areas, update this section in the same change.
+
 ## Future Feature Guardrails
 
 Possible later features include keyword highlighting in job descriptions, advanced LinkedIn search links, and AI assistance. Treat these as future scope, not MVP requirements. If added later, preserve the core privacy posture unless the user explicitly approves a new data model.
