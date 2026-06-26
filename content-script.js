@@ -19,11 +19,10 @@
     ".job-card-list__footer-job-state",
   ].join(", ");
 
-  // We anchor styling to the card shell that contains a job link and the visible label.
-  const JOB_LINK_SELECTORS = [
-    "a[href*='currentJobId=']",
-    "a[href*='/jobs/search-results/']",
-    "a[href*='/jobs/view/']",
+  const CARD_ROOT_SELECTORS = [
+    "[data-job-id]",
+    "li[data-occludable-job-id]",
+    "[componentkey^='job-card-component-ref-']",
   ].join(", ");
 
   const FEED_SCOPE_SELECTORS = [
@@ -32,8 +31,6 @@
     "section[aria-label='Primary content']",
     "main",
   ].join(", ");
-
-  const STATE_TEXT_VALUES = new Set(["Viewed", "Applied"]);
 
   const FLUSH_DELAY_MS = 48;
   const BOOTSTRAP_INTERVAL_MS = 500;
@@ -55,33 +52,6 @@
 
   function normalizeText(value) {
     return String(value || "").replace(/\s+/g, " ").trim();
-  }
-
-  function isIgnorableTextNode(textNode) {
-    const parent = textNode?.parentElement;
-    if (!parent) {
-      return true;
-    }
-
-    return ["SCRIPT", "STYLE", "NOSCRIPT", "TEMPLATE"].includes(parent.tagName);
-  }
-
-  function findCardRoot(node) {
-    const current = node instanceof HTMLElement ? node : node?.parentElement;
-    if (!current) {
-      return null;
-    }
-
-    let cursor = current;
-    while (cursor && cursor !== document.documentElement) {
-      if (cursor instanceof HTMLElement && cursor.querySelector(JOB_LINK_SELECTORS)) {
-        return cursor;
-      }
-
-      cursor = cursor.parentElement;
-    }
-
-    return null;
   }
 
   function readVisibleState(root) {
@@ -108,6 +78,70 @@
     return null;
   }
 
+  function isExplicitCardRoot(node) {
+    if (!(node instanceof HTMLElement)) {
+      return false;
+    }
+
+    if (node.matches("li[data-occludable-job-id]")) {
+      return true;
+    }
+
+    const jobId = node.getAttribute("data-job-id");
+    if (jobId && /^\d+$/.test(jobId)) {
+      return true;
+    }
+
+    const componentKey = node.getAttribute("componentkey") || "";
+    return componentKey.startsWith("job-card-component-ref-");
+  }
+
+  function hasRepeatedComponentKey(node) {
+    if (!(node instanceof HTMLElement)) {
+      return false;
+    }
+
+    const componentKey = node.getAttribute("componentkey");
+    if (!componentKey) {
+      return false;
+    }
+
+    for (const child of node.children) {
+      if (child instanceof HTMLElement && child.getAttribute("componentkey") === componentKey) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  function findCardRootFromStateNode(node) {
+    let current = node instanceof HTMLElement ? node : node?.parentElement;
+
+    while (current instanceof HTMLElement) {
+      if (isExplicitCardRoot(current)) {
+        return current;
+      }
+
+      if (hasRepeatedComponentKey(current)) {
+        return current;
+      }
+
+      current = current.parentElement;
+    }
+
+    return null;
+  }
+
+  function isStateLabelNode(node) {
+    if (!(node instanceof HTMLElement)) {
+      return false;
+    }
+
+    const text = normalizeText(node.textContent);
+    return text === "Applied" || text === "Viewed";
+  }
+
   function collectStateNodes(scope = document) {
     const nodes = [];
     const seen = new Set();
@@ -130,23 +164,43 @@
         ? (scope.querySelector(FEED_SCOPE_SELECTORS) || scope.body || scope.documentElement)
         : scope;
 
-    if (treeScope) {
-      const walker = document.createTreeWalker(treeScope, NodeFilter.SHOW_TEXT, {
-        acceptNode(node) {
-          if (!(node instanceof Text) || isIgnorableTextNode(node)) {
-            return NodeFilter.FILTER_REJECT;
-          }
+    if (!treeScope) {
+      return nodes;
+    }
 
-          const text = normalizeText(node.textContent);
-          return STATE_TEXT_VALUES.has(text)
-            ? NodeFilter.FILTER_ACCEPT
-            : NodeFilter.FILTER_REJECT;
-        },
-      });
+    const walker = document.createTreeWalker(treeScope, NodeFilter.SHOW_ELEMENT);
+    for (let current = walker.currentNode; current; current = walker.nextNode()) {
+      if (isStateLabelNode(current)) {
+        pushCandidate(current);
+      }
+    }
 
-      while (walker.nextNode()) {
-        const textNode = walker.currentNode;
-        pushCandidate(textNode.parentElement);
+    return nodes;
+  }
+
+  function collectCardRoots(scope = document) {
+    const nodes = [];
+    const seen = new Set();
+
+    const pushCandidate = (candidate) => {
+      if (!(candidate instanceof HTMLElement) || seen.has(candidate)) {
+        return;
+      }
+
+      seen.add(candidate);
+      nodes.push(candidate);
+    };
+
+    for (const node of scope.querySelectorAll(CARD_ROOT_SELECTORS)) {
+      if (isExplicitCardRoot(node)) {
+        pushCandidate(node);
+      }
+    }
+
+    for (const stateNode of collectStateNodes(scope)) {
+      const root = findCardRootFromStateNode(stateNode);
+      if (root) {
+        pushCandidate(root);
       }
     }
 
@@ -157,14 +211,13 @@
     const roots = [];
     const seen = new Set();
 
-    for (const candidate of collectStateNodes(scope)) {
-      const root = findCardRoot(candidate);
-      if (!root || seen.has(root)) {
+    for (const candidate of collectCardRoots(scope)) {
+      if (!candidate || seen.has(candidate)) {
         continue;
       }
 
-      seen.add(root);
-      roots.push(root);
+      seen.add(candidate);
+      roots.push(candidate);
     }
 
     return roots.filter((root) => !roots.some((other) => other !== root && other.contains(root)));
