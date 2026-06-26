@@ -1,5 +1,7 @@
 .DS_Store
 
-temp/*
+temp*/*
+temp:sample-linkedin-job-page/
+
 design/*
 product/*

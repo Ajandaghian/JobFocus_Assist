@@ -1,27 +1,33 @@
 # JobFocus Assist Privacy Policy
 
-JobFocus Assist is designed to run locally in the browser.
+Effective date: 2026-06-26
 
-What it collects:
+JobFocus Assist is designed to operate entirely in the browser on LinkedIn jobs pages.
 
-- No personal data is collected or sent to a server
-- No LinkedIn content is uploaded anywhere
-- The only stored values are the user-selected run mode and keyword groups for highlighting
+## Data handling
 
-How storage is used:
+- The extension does not collect or transmit personal data to a server.
+- The extension does not upload LinkedIn content.
+- The extension only stores user preferences locally in Chrome extension storage.
 
-- The extension stores its mode locally in Chrome extension storage
-- The mode and keyword groups are used only to restore your preferences the next time you open the popup
+## Stored preferences
 
-Third parties:
+The only stored values are:
 
-- JobFocus Assist does not share data with third parties
+- `viewedEnabled`
+- `appliedEnabled`
+- `extensionActive`
 
-If you have questions about this extension, contact the publisher through the Chrome Web Store listing or repository.
+These preferences are used only to restore your popup settings and extension state on the next browser session.
 
+## Third parties
 
-Disclaimer
+- JobFocus Assist does not share data with third parties.
+- JobFocus Assist does not use analytics, advertising, or tracking services.
 
-- This extension were created with the assistance of AI. The author used AI tools and prompts to generate parts of the code and text.
-- The author does not take responsibility for any misuse, abuse, or improper application of the extension. Users are responsible for how they use the extension and must comply with applicable laws and platform terms of service.
-- Use at your own risk; the publisher provides no warranties regarding outcomes or consequences resulting from use.
+## Contact
+
+If you have questions about this extension, open an issue in the repository:
+
+https://github.com/Ajandaghian/JobFocus_Assist/issues
+

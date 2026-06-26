@@ -5,9 +5,9 @@ const DEFAULT_PREFS = {
 };
 
 const ABOUT_URLS = {
-  github: "https://github.com/your-org/jobfocus-assist",
-  star: "https://github.com/your-org/jobfocus-assist/stargazers",
-  feedback: "https://example.com/jobfocus-assist/feedback",
+  github: "https://github.com/Ajandaghian/JobFocus_Assist",
+  star: "https://github.com/Ajandaghian/JobFocus_Assist/stargazers",
+  feedback: "https://github.com/Ajandaghian/JobFocus_Assist/issues/new",
 };
 
 const ICONS = {

@@ -1,20 +1,31 @@
 # JobFocus Assist
 
+JobFocus Assist is a minimal Chrome extension that restyles LinkedIn job result cards based only on the state already visible in LinkedIn.
+
 > *JobFocus Assist: LinkedIn Job Search Visual Helper*
-
-An extension to make LinkedIn job search more efficient for people who review many jobs repeatedly.
-
 ![JobFocus Assist Logo](assets/brand/jobfocus-assist-lockup.png)
 
 
-## Overview
+## What it does
 
-This extension is a visual layer on top of LinkedIn's job search results. It helps users quickly identify which jobs they have already viewed or applied to, making it easier to focus on new opportunities.
+- Detects LinkedIn job cards
+- Mutes cards marked `Viewed`
+- Marks cards marked `Applied`
+- Leaves all other cards unchanged
+- Re-runs automatically as LinkedIn updates the job list
 
-The extension will deemphasize jobs that have already been `viewed` or `applied` to, while leaving new jobs visually unchanged. This allows users to quickly scan through job listings and focus on the most relevant opportunities.
+![JobFocus Assist Store Intro](assets/store/jobfocus-assist-store-intro.png)
+
+## Privacy
+
+- No job data is stored
+- No LinkedIn content is uploaded
+- Only extension preferences are stored locally in Chrome storage
+
+See the full policy in [docs/privacy-policy.md](docs/privacy-policy.md).
 
 
-## Install
+# Install
 
 ### install from Chrome Web Store
 
@@ -24,10 +35,17 @@ The extension will deemphasize jobs that have already been `viewed` or `applied`
 
 Direct link to the extension: [JobFocus Assist] ***Comming soon to the Chrome Web Store***
 
-### install manually
+### install from here
 
 0. Download the extension source code from this repository.
-1. Open: `chrome://extensions`
+1. Open `chrome://extensions`
 2. Enable Developer mode
 3. Click Load unpacked
 4. Select this folder
+
+
+
+## Project links
+
+- Repository: https://github.com/Ajandaghian/JobFocus_Assist
+- Issues: https://github.com/Ajandaghian/JobFocus_Assist/issues
