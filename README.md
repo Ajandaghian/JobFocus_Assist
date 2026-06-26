@@ -24,6 +24,13 @@ JobFocus Assist is a minimal Chrome extension that restyles LinkedIn job result 
 
 See the full policy in [docs/privacy-policy.md](docs/privacy-policy.md).
 
+## Landing pages
+
+- `landing/url-builder/` is a static, client-side LinkedIn Jobs URL builder.
+- It builds public search URLs from keyword groups, exclusions, geoId, recency, and sort.
+- It stores no search history, job data, or user behavior.
+
+Open locally at `http://localhost:4173/landing/url-builder/` when serving this repo.
 
 # Install
 

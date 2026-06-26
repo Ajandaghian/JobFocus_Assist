@@ -37,6 +37,13 @@ LinkedIn is the source of truth. The extension should read visible page text/sta
 - `landing/` holds static public pages that can be deployed independently, including `landing/url-builder/` for the LinkedIn Jobs search URL builder.
 - When adding, moving, or removing top-level product areas, update this section in the same change.
 
+## Landing Page Rules
+
+- Keep `landing/url-builder/` static and client-side.
+- Build LinkedIn Jobs URLs from visible inputs only: keyword groups, exclusions, geoId, recency, and sort.
+- Do not store search history, job data, generated URLs, or user behavior.
+- Keep generated URL logic deterministic and avoid private LinkedIn APIs.
+
 ## Future Feature Guardrails
 
 Possible later features include keyword highlighting in job descriptions, advanced LinkedIn search links, and AI assistance. Treat these as future scope, not MVP requirements. If added later, preserve the core privacy posture unless the user explicitly approves a new data model.
