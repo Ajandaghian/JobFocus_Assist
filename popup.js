@@ -208,20 +208,12 @@ function dedupeKeywords(keywords) {
   return result;
 }
 
-function createRuleId() {
-  if (globalThis.crypto?.randomUUID) {
-    return globalThis.crypto.randomUUID();
-  }
-
-  return `rule-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-}
-
 function normalizeRule(rule, fallbackTime = 0) {
   const createdAt = normalizeTime(rule?.createdAt, fallbackTime);
   const updatedAt = normalizeTime(rule?.updatedAt, createdAt);
 
   return {
-    id: String(rule?.id || createRuleId()),
+    id: String(rule?.id || crypto.randomUUID()),
     keywords: dedupeKeywords(normalizeKeywords(rule?.keywords)),
     color: normalizeColor(rule?.color),
     createdAt,

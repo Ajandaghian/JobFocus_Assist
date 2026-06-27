@@ -29,6 +29,8 @@ body {
   width: 475px;
   min-width: 475px;
   max-width: 475px;
+  height: var(--popup-max-height);
+  min-height: var(--popup-max-height);
   max-height: var(--popup-max-height);
   overflow: hidden;
   background: linear-gradient(180deg, #f7f9fd 0%, #ffffff 100%);
@@ -52,8 +54,9 @@ button {
 .popup-shell {
   display: flex;
   flex-direction: column;
-  height: min(var(--popup-max-height), calc(100vh - 12px));
-  max-height: min(var(--popup-max-height), calc(100vh - 12px));
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 18px;
