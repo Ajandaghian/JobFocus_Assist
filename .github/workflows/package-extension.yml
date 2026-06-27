@@ -62,6 +62,7 @@ jobs:
 
           echo "zip_name=$zip_name" >> "$GITHUB_OUTPUT"
           echo "zip_path=$zip_path" >> "$GITHUB_OUTPUT"
+          echo "staging_dir=$staging_dir" >> "$GITHUB_OUTPUT"
 
       - name: Upload GitHub Release asset
         if: github.event_name == 'release'
@@ -74,4 +75,4 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.package.outputs.zip_name }}
-          path: ${{ steps.package.outputs.zip_path }}
+          path: ${{ steps.package.outputs.staging_dir }}
