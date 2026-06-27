@@ -21,6 +21,8 @@ JobFocus Assist is a minimal Chrome extension that restyles LinkedIn job result 
 - No job data is stored
 - No LinkedIn content is uploaded
 - Only extension preferences are stored locally in Chrome storage
+- The project is non-commercial
+- The public privacy-policy page should stay in sync with `docs/privacy-policy.md` before any release
 
 See the full policy in [docs/privacy-policy.md](docs/privacy-policy.md).
 
@@ -32,8 +34,6 @@ See the full policy in [docs/privacy-policy.md](docs/privacy-policy.md).
 1. Open the [Chrome Web Store](https://chrome.google.com/webstore/category/extensions)
 2. Search for "JobFocus Assist"
 3. Click "Add to Chrome"
-
-Direct link to the extension: [JobFocus Assist] ***Comming soon to the Chrome Web Store***
 
 ### install from here
 
@@ -49,3 +49,8 @@ Direct link to the extension: [JobFocus Assist] ***Comming soon to the Chrome We
 
 - Repository: https://github.com/Ajandaghian/JobFocus_Assist
 - Issues: https://github.com/Ajandaghian/JobFocus_Assist/issues
+
+## Release Notes
+
+- Before publishing or updating the extension, re-check the privacy policy URL, popup links, screenshots, permissions, and store text.
+- Keep this repository documentation aligned with the live Chrome Web Store listing.

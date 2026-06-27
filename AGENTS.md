@@ -29,6 +29,13 @@ LinkedIn is the source of truth. The extension should read visible page text/sta
 - Avoid network calls.
 - Avoid broad permissions; request only what the extension needs for LinkedIn jobs pages.
 
+## Release And Maintenance Checks
+
+- Before any Chrome Web Store update, confirm the public privacy-policy URL is live and matches the repo copy.
+- Before any release, re-check popup links, store screenshots, and listing text for stale or placeholder content.
+- If scope changes, update the privacy policy, README, and store assets together so they stay consistent.
+- Keep the product non-commercial unless the user explicitly changes that direction.
+
 ## Future Feature Guardrails
 
 Possible later features include keyword highlighting in job descriptions, advanced LinkedIn search links, and AI assistance. Treat these as future scope, not MVP requirements. If added later, preserve the core privacy posture unless the user explicitly approves a new data model.

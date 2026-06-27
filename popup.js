@@ -6,7 +6,6 @@ const DEFAULT_PREFS = {
 
 const ABOUT_URLS = {
   github: "https://github.com/Ajandaghian/JobFocus_Assist",
-  star: "https://github.com/Ajandaghian/JobFocus_Assist/stargazers",
   feedback: "https://github.com/Ajandaghian/JobFocus_Assist/issues/new",
 };
 
