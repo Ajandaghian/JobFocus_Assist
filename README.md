@@ -52,5 +52,6 @@ See the full policy in [docs/privacy-policy.md](docs/privacy-policy.md).
 
 ## Release Notes
 
+- GitHub Actions builds a release ZIP automatically on pushes to `main` and on published GitHub releases.
 - Before publishing or updating the extension, re-check the privacy policy URL, popup links, screenshots, permissions, and store text.
 - Keep this repository documentation aligned with the live Chrome Web Store listing.

@@ -33,6 +33,7 @@ LinkedIn is the source of truth. The extension should read visible page text/sta
 
 - Before any Chrome Web Store update, confirm the public privacy-policy URL is live and matches the repo copy.
 - Before any release, re-check popup links, store screenshots, and listing text for stale or placeholder content.
+- Before any release, verify the generated ZIP includes only the extension files that should ship.
 - If scope changes, update the privacy policy, README, and store assets together so they stay consistent.
 - Keep the product non-commercial unless the user explicitly changes that direction.
 
@@ -49,4 +50,3 @@ Possible later features include keyword highlighting in job descriptions, advanc
 - Styling applies after scrolling or changing search results.
 - No user job data is stored by the extension.
 - Popup preferences persist across reopen and browser refresh.
-

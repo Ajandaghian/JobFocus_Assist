@@ -1,0 +1,77 @@
+name: Package extension
+
+on:
+  push:
+    branches:
+      - main
+  release:
+    types:
+      - published
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate extension files
+        run: |
+          node --check content-script.js
+          node --check popup.js
+          node -e "JSON.parse(require('fs').readFileSync('manifest.json', 'utf8'))"
+
+      - name: Build release ZIP
+        id: package
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          version=$(node -p "require('./manifest.json').version")
+
+          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
+            zip_name="jobfocus-assist-v${version}.zip"
+          else
+            zip_name="jobfocus-assist-main-${GITHUB_SHA::7}.zip"
+          fi
+
+          zip_path="$RUNNER_TEMP/$zip_name"
+
+          git archive --format=zip --output "$zip_path" HEAD \
+            manifest.json \
+            content-script.js \
+            content.css \
+            popup.html \
+            popup.js \
+            popup.css \
+            privacy.html \
+            assets/brand/jobfocus-assist-icon-16.png \
+            assets/brand/jobfocus-assist-icon-32.png \
+            assets/brand/jobfocus-assist-icon-48.png \
+            assets/brand/jobfocus-assist-icon-128.png
+
+          echo "zip_name=$zip_name" >> "$GITHUB_OUTPUT"
+          echo "zip_path=$zip_path" >> "$GITHUB_OUTPUT"
+
+      - name: Upload GitHub Release asset
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.package.outputs.zip_path }}
+
+      - name: Upload build artifact
+        if: github.event_name != 'release'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.package.outputs.zip_name }}
+          path: ${{ steps.package.outputs.zip_path }}
