@@ -18,12 +18,12 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Validate extension files
         run: |
@@ -38,6 +38,7 @@ jobs:
           set -euo pipefail
 
           version=$(node -p "require('./manifest.json').version")
+          staging_dir="$RUNNER_TEMP/jobfocus-assist-package"
 
           if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
             zip_name="jobfocus-assist-v${version}.zip"
@@ -47,18 +48,17 @@ jobs:
 
           zip_path="$RUNNER_TEMP/$zip_name"
 
-          git archive --format=zip --output "$zip_path" HEAD \
-            manifest.json \
-            content-script.js \
-            content.css \
-            popup.html \
-            popup.js \
-            popup.css \
-            privacy.html \
-            assets/brand/jobfocus-assist-icon-16.png \
-            assets/brand/jobfocus-assist-icon-32.png \
-            assets/brand/jobfocus-assist-icon-48.png \
-            assets/brand/jobfocus-assist-icon-128.png
+          rm -rf "$staging_dir"
+          mkdir -p "$staging_dir/assets/brand" "$staging_dir/privacy"
+
+          cp manifest.json content-script.js content.css popup.html popup.js popup.css privacy.html "$staging_dir/"
+          cp docs/privacy-policy.md "$staging_dir/privacy/privacy-policy.md"
+          cp assets/brand/jobfocus-assist-icon-16.png "$staging_dir/assets/brand/"
+          cp assets/brand/jobfocus-assist-icon-32.png "$staging_dir/assets/brand/"
+          cp assets/brand/jobfocus-assist-icon-48.png "$staging_dir/assets/brand/"
+          cp assets/brand/jobfocus-assist-icon-128.png "$staging_dir/assets/brand/"
+
+          (cd "$staging_dir" && zip -qr "$zip_path" manifest.json content-script.js content.css popup.html popup.js popup.css privacy.html assets privacy)
 
           echo "zip_name=$zip_name" >> "$GITHUB_OUTPUT"
           echo "zip_path=$zip_path" >> "$GITHUB_OUTPUT"
@@ -71,7 +71,7 @@ jobs:
 
       - name: Upload build artifact
         if: github.event_name != 'release'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.package.outputs.zip_name }}
           path: ${{ steps.package.outputs.zip_path }}
