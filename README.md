@@ -12,6 +12,7 @@ JobFocus Assist is a minimal Chrome extension that restyles LinkedIn job result 
 - Mutes cards marked `Viewed`
 - Marks cards marked `Applied`
 - Highlights matched keywords inside the open JD using user-defined local rules
+- Lets you manage keyword rules locally in the popup
 - Leaves all other cards unchanged
 - Re-runs automatically as LinkedIn updates the job list
 
@@ -29,23 +30,17 @@ See the full policy in [docs/privacy-policy.md](docs/privacy-policy.md).
 
 # Install
 
-### install from Chrome Web Store
+1. Download the extension source code from this repository.
+2. Open `chrome://extensions`.
+3. Enable Developer mode.
+4. Click Load unpacked.
+5. Select this folder.
 
-1. Open the [Chrome Web Store](https://chrome.google.com/webstore/category/extensions)
-2. Search for "JobFocus Assist"
-3. Click "Add to Chrome"
+## Publish
 
-Direct link to the extension: [JobFocus Assist] ***Comming soon to the Chrome Web Store***
-
-### install from here
-
-0. Download the extension source code from this repository.
-1. Open `chrome://extensions`
-2. Enable Developer mode
-3. Click Load unpacked
-4. Select this folder
-
-
+- Keep `manifest.json`, `docs/privacy-policy.md`, and `privacy.html` aligned.
+- Mention viewed/applied styling and local JD keyword highlighting in the store listing.
+- Ship the repository root as the extension bundle; no build step is required.
 
 ## Project links
 

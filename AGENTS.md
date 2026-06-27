@@ -4,7 +4,7 @@
 
 Build JobFocus Assist, a minimal Chrome extension that visually restyles LinkedIn job result cards based only on state already visible in LinkedIn's page.
 
-Do not add job-data persistence, custom tracking, notes, CRM features, or application automation unless the user explicitly changes the scope. Storing extension preferences is allowed.
+Do not add job-data persistence, custom tracking, notes, CRM features, or application automation unless the user explicitly changes the scope. Storing extension preferences and local keyword rules is allowed.
 
 ## Core Product Rule
 
@@ -29,9 +29,9 @@ LinkedIn is the source of truth. The extension should read visible page text/sta
 - Avoid network calls.
 - Avoid broad permissions; request only what the extension needs for LinkedIn jobs pages.
 
-## Future Feature Guardrails
+## Current Feature Guardrails
 
-Possible later features include keyword highlighting in job descriptions, advanced LinkedIn search links, and AI assistance. Treat these as future scope, not MVP requirements. If added later, preserve the core privacy posture unless the user explicitly approves a new data model.
+Keyword highlighting in the opened JD is in scope. Keep it browser-local, grouped by keyword rule, and limited to visible page text. Advanced LinkedIn search links and AI assistance remain future scope.
 
 ## Verification Checklist
 
@@ -54,3 +54,9 @@ Possible later features include keyword highlighting in job descriptions, advanc
 - Implement from `product/prd.md`, the selected popup state-flow image, and brand assets.
 - Use `ppm-acceptance-reviewer` before accepting or shipping the feature.
 - Do not silently promote feature-specific design choices into `design/system/`; ask first.
+
+## Publish Checklist
+
+- Keep `manifest.json`, `docs/privacy-policy.md`, `privacy.html`, and `README.md` aligned.
+- Make sure the store copy mentions viewed/applied styling plus local JD keyword highlighting.
+- Ship the repository root as the extension bundle; no build step is required.
