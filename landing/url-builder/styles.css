@@ -1271,3 +1271,277 @@ mark {
     order: -1;
   }
 }
+
+
+.topbar-ctas {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.topbar-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 0 12px;
+  color: var(--blue-strong);
+  background: #edf5ff;
+  border: 1px solid #d0e0fb;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 760;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.topbar-cta:hover,
+.topbar-cta:focus-visible {
+  background: #e3efff;
+}
+
+.topbar-cta img {
+  width: 14px;
+  height: 14px;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  margin-left: 6px;
+  color: var(--blue-strong);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  cursor: pointer;
+  font-weight: 760;
+}
+
+.text-link:hover,
+.text-link:focus-visible {
+  opacity: 0.85;
+}
+
+.chips:empty,
+.chip-count:empty {
+  display: none;
+}
+
+.boolean-preview.is-empty {
+  display: none;
+}
+
+.chips {
+  min-height: 0;
+}
+
+.guide--compact {
+  margin-top: 18px;
+  padding: 20px 24px;
+}
+
+.guide-compact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.guide-compact h2 {
+  margin: 0 0 4px;
+  font-size: 1.02rem;
+}
+
+.guide-compact p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.guide-launch-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 14px;
+  color: var(--blue-strong);
+  background: #fff;
+  border: 1px solid #cbd7e5;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 760;
+  white-space: nowrap;
+}
+
+.guide-launch-button:hover,
+.guide-launch-button:focus-visible {
+  background: #f6f9ff;
+}
+
+.geo-dialog {
+  width: min(980px, calc(100vw - 32px));
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.geo-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.46);
+  backdrop-filter: blur(6px);
+}
+
+.geo-dialog__panel {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.geo-dialog__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.dialog-eyebrow {
+  margin: 0 0 6px;
+  color: var(--blue-strong);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.geo-dialog__head h2 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+}
+
+.geo-dialog__head p:last-child {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.dialog-close {
+  flex: 0 0 auto;
+}
+
+.geo-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dialog-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  color: #fff;
+  background: linear-gradient(180deg, #1269f0, #0055d6);
+  border: 1px solid #0055d6;
+  border-radius: 999px;
+  box-shadow: 0 12px 24px rgba(7, 93, 224, 0.22);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.dialog-primary:hover,
+.dialog-primary:focus-visible {
+  filter: brightness(1.02);
+}
+
+@media (max-width: 1030px) {
+  .topbar-ctas {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 760px) {
+  .topbar-ctas {
+    justify-content: flex-start;
+  }
+
+  .guide-compact,
+  .geo-dialog__head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .guide-launch-button,
+  .dialog-primary {
+    width: 100%;
+  }
+
+  .geo-dialog {
+    width: calc(100vw - 20px);
+  }
+
+  .geo-dialog__panel {
+    padding: 18px;
+  }
+
+  .text-link {
+    margin-left: 0;
+    margin-top: 6px;
+  }
+}
+
+
+.topbar-cta,
+.guide-launch-button,
+.dialog-primary {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  color: var(--ink);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.topbar-cta:hover,
+.topbar-cta:focus-visible,
+.guide-launch-button:hover,
+.guide-launch-button:focus-visible,
+.dialog-primary:hover,
+.dialog-primary:focus-visible {
+  background: #f8fbff;
+}
+
+.topbar-cta {
+  border-radius: 16px;
+  font-weight: 700;
+}
+
+.topbar-cta img {
+  width: 15px;
+  height: 15px;
+  filter: invert(14%) sepia(17%) saturate(1016%) hue-rotate(182deg) brightness(93%) contrast(89%);
+}
+
+.guide-launch-button,
+.dialog-primary {
+  border-radius: 16px;
+  font-weight: 700;
+}
+
+.dialog-primary {
+  min-height: 42px;
+}
+
+.topbar-cta:hover,
+.topbar-cta:focus-visible,
+.guide-launch-button:hover,
+.guide-launch-button:focus-visible,
+.dialog-primary:hover,
+.dialog-primary:focus-visible {
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}

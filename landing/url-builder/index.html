@@ -16,11 +16,20 @@
         <span class="brand-mark">in</span>
         <span>LinkedIn Jobs URL Builder</span>
       </a>
-      <nav class="topbar-signals" aria-label="Page benefits">
-        <span><img src="./assets/icons/shield-check.svg" alt=""> Client-side only</span>
-        <span><img src="./assets/icons/lock.svg" alt=""> No saved searches</span>
-        <span><img src="./assets/icons/link-2.svg" alt=""> Shareable links</span>
-      </nav>
+      <div class="topbar-ctas" aria-label="Project links">
+        <a class="topbar-cta" href="https://github.com/Ajandaghian/JobFocus_Assist" target="_blank" rel="noreferrer">
+          <img src="./assets/icons/link-2.svg" alt="">
+          <span>GitHub</span>
+        </a>
+        <a class="topbar-cta" href="https://github.com/Ajandaghian/JobFocus_Assist/blob/main/README.md" target="_blank" rel="noreferrer">
+          <img src="./assets/icons/external-link.svg" alt="">
+          <span>Extension page</span>
+        </a>
+        <a class="topbar-cta" href="https://github.com/Ajandaghian/JobFocus_Assist/issues/new" target="_blank" rel="noreferrer">
+          <img src="./assets/icons/circle-help.svg" alt="">
+          <span>Feedback</span>
+        </a>
+      </div>
     </header>
 
     <main>
@@ -91,18 +100,18 @@
             <aside class="row-label">
               <span class="row-icon"><img src="./assets/icons/map-pin.svg" alt=""></span>
               <div>
-                <h2 id="location-title">Location code</h2>
-                <p>Paste the LinkedIn geoId for the location you want to target.</p>
+                <h2 id="location-title">Location name or geoId</h2>
+                <p>Paste a LinkedIn location name or the geoId value from the URL.</p>
               </div>
             </aside>
 
             <div class="row-main location-stack">
               <label class="field-block">
-                <span class="field-label">geoId from LinkedIn URL</span>
-                <input id="geo-id" type="text" inputmode="numeric" value="103644278" autocomplete="off">
+                <span class="field-label">Location value</span>
+                <input id="geo-id" type="text" inputmode="text" value="103644278" autocomplete="off" placeholder="geoId or location name">
                 <span class="error-text" id="geo-error" role="alert"></span>
               </label>
-              <p class="field-note">Only <code>geoId</code> affects the URL. Copy it from LinkedIn's location dropdown or the search URL.</p>
+              <p class="field-note">Use a numeric geoId or a LinkedIn location name. <button class="text-link" type="button" data-open-guide>Open the guide</button></p>
             </div>
           </section>
 
@@ -145,7 +154,6 @@
                 <label><input type="radio" name="sortBy" value="DD" checked><span><img src="./assets/icons/clock.svg" alt=""> Latest</span></label>
                 <label><input type="radio" name="sortBy" value="R"><span><img src="./assets/icons/thumbs-up.svg" alt=""> Recommended</span></label>
               </div>
-              <p class="hint" id="sort-copy">Latest jobs first. Uses <code>sortBy=DD</code>.</p>
             </div>
           </section>
         </form>
@@ -177,16 +185,27 @@
         </aside>
       </section>
 
-      <section class="guide" id="geo-guide" aria-labelledby="guide-title">
-        <details class="geo-help">
-          <summary class="guide-heading">
-            <span class="row-icon"><img src="./assets/icons/circle-help.svg" alt=""></span>
+      <section class="guide guide--compact" id="geo-guide" aria-labelledby="guide-title">
+        <div class="guide-compact">
+          <span class="row-icon"><img src="./assets/icons/circle-help.svg" alt=""></span>
+          <div>
+            <h2 id="guide-title">How to find location values</h2>
+            <p>Open the popup for geoId and location-name steps.</p>
+          </div>
+          <button class="guide-launch-button" type="button" data-open-guide>Open guide</button>
+        </div>
+      </section>
+
+      <dialog id="geo-guide-dialog" class="geo-dialog" aria-labelledby="geo-guide-dialog-title">
+        <form method="dialog" class="geo-dialog__panel">
+          <div class="geo-dialog__head">
             <div>
-              <h2 id="guide-title">How to find geoId <span>(3 steps)</span></h2>
-              <p>Open this only if you need help finding the location code.</p>
+              <p class="dialog-eyebrow">Location guide</p>
+              <h2 id="geo-guide-dialog-title">How to find geoId or a location name</h2>
+              <p>Use this if you want the LinkedIn URL to target a place without guessing the value.</p>
             </div>
-            <span class="guide-summary-copy">Show steps</span>
-          </summary>
+            <button class="icon-button dialog-close" value="close" type="submit" aria-label="Close guide">Close</button>
+          </div>
 
           <div class="geo-steps">
             <article class="geo-step">
@@ -202,15 +221,15 @@
 
             <article class="geo-step">
               <span class="step-number">2</span>
-              <strong>Choose a location</strong>
-              <p>Use the location dropdown and select a country, region, or city.</p>
+              <strong>Choose a location name</strong>
+              <p>Select a country, region, or city from LinkedIn's location picker. The text you see there can also work in the builder.</p>
               <div class="mini-select">United States <img src="./assets/icons/x.svg" alt=""></div>
             </article>
 
             <article class="geo-step">
               <span class="step-number">3</span>
               <strong>Copy the geoId</strong>
-              <p>Look at the URL and copy the value after <code>geoId=</code>.</p>
+              <p>If you want the numeric version, copy the value after <code>geoId=</code> in the LinkedIn URL.</p>
               <div class="mini-url">...&amp;geoId=<mark>103644278</mark>&amp;f_TPR=...</div>
             </article>
 
@@ -221,8 +240,12 @@
               </figcaption>
             </figure>
           </div>
-        </details>
-      </section>
+
+          <div class="geo-dialog__footer">
+            <button class="dialog-primary" value="close" type="submit">Done</button>
+          </div>
+        </form>
+      </dialog>
 
       <footer class="footer-note">
         <img src="./assets/icons/shield-check.svg" alt="">

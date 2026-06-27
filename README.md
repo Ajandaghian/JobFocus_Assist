@@ -30,7 +30,13 @@ See the full policy in [docs/privacy-policy.md](docs/privacy-policy.md).
 - It builds public search URLs from keyword groups, exclusions, geoId, recency, and sort.
 - It stores no search history, job data, or user behavior.
 
-Open locally at `http://localhost:4173/landing/url-builder/` when serving this repo.
+To preview it locally from the repo root, run a static server such as:
+
+```bash
+python3 -m http.server 4173
+```
+
+Then open `http://localhost:4173/landing/url-builder/`.
 
 # Install
 

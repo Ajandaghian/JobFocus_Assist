@@ -34,6 +34,8 @@
     copyButton: document.querySelector("#copy-button"),
     openLink: document.querySelector("#open-link"),
     resetButton: document.querySelector("#reset-button"),
+    booleanPreview: document.querySelector(".boolean-preview"),
+    guideDialog: document.querySelector("#geo-guide-dialog"),
     geoHelp: document.querySelector(".geo-help"),
     geoHelpLabel: document.querySelector(".guide-summary-copy"),
   };
@@ -84,8 +86,8 @@
       errors.push("Add at least one keyword.");
     }
 
-    if (!isValidGeoId(state.geoId)) {
-      errors.push("Enter a numeric LinkedIn geoId.");
+    if (!state.geoId.trim()) {
+      errors.push("Enter a geoId or location name.");
     }
 
     if (!Number.isFinite(Number(state.recencyDays)) || Number(state.recencyDays) <= 0) {
@@ -96,9 +98,14 @@
   }
 
   function buildLinkedInUrl() {
+    const locationValue = state.geoId.trim();
+    const locationParam = isValidGeoId(locationValue)
+      ? ["geoId", locationValue]
+      : ["location", locationValue];
+
     const params = [
       ["keywords", buildKeywordExpression()],
-      ["geoId", state.geoId.trim()],
+      locationParam,
       ["f_TPR", `r${recencySeconds()}`],
       ["origin", "JOB_SEARCH_PAGE_JOB_FILTER"],
       ["refresh", "true"],
@@ -111,6 +118,21 @@
     return `${LINKEDIN_BASE_URL}?${params
       .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
       .join("&")}`;
+  }
+
+  function openGuideDialog() {
+    if (!(elements.guideDialog instanceof HTMLDialogElement)) {
+      return;
+    }
+
+    if (typeof elements.guideDialog.showModal === "function") {
+      if (!elements.guideDialog.open) {
+        elements.guideDialog.showModal();
+      }
+      return;
+    }
+
+    elements.guideDialog.setAttribute("open", "");
   }
 
   function createChip(term, removeHandler, isExclude) {
@@ -249,20 +271,19 @@
 
     elements.excludeHint.textContent =
       state.excludeTerms.length === 0
-        ? "No exclusions added."
+        ? ""
         : state.excludeTerms.length === 1
           ? "1 exclusion term added."
           : `${state.excludeTerms.length} exclusion terms added.`;
 
-    elements.keywordPreview.textContent = keywordExpression || "Add a keyword to start.";
-    elements.geoError.textContent = isValidGeoId(state.geoId) ? "" : "geoId must contain numbers only.";
+    elements.keywordPreview.textContent = keywordExpression || "";
+    if (elements.booleanPreview instanceof HTMLElement) {
+      elements.booleanPreview.classList.toggle("is-empty", !keywordExpression);
+    }
+    elements.geoError.textContent = state.geoId.trim() ? "" : "Enter a geoId or location name.";
     elements.recencyCopy.textContent = `Show jobs posted in the last ${state.recencyDays} ${
       Number(state.recencyDays) === 1 ? "day" : "days"
     }.`;
-    elements.sortCopy.innerHTML =
-      state.sortBy === "DD"
-        ? 'Latest jobs first. Uses <code>sortBy=DD</code>.'
-        : "Recommended ordering uses LinkedIn's default ranking and omits unconfirmed sort parameters.";
 
     elements.generatedUrl.value = url;
     elements.openLink.href = url || "#";
@@ -326,6 +347,12 @@
   });
 
   elements.resetButton.addEventListener("click", resetState);
+
+  document.querySelectorAll("[data-open-guide]").forEach((button) => {
+    button.addEventListener("click", () => {
+      openGuideDialog();
+    });
+  });
 
   elements.copyButton.addEventListener("click", async () => {
     if (!elements.generatedUrl.value) return;
