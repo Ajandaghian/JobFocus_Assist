@@ -583,9 +583,15 @@
 
     const roots = findJobDescriptionRoots(scope);
     for (const root of roots) {
-      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      const ownerDocument = root.ownerDocument || document;
+      const nodeFilter = ownerDocument.defaultView?.NodeFilter || window.NodeFilter;
+      if (!nodeFilter) {
+        continue;
+      }
+
+      const walker = ownerDocument.createTreeWalker(root, nodeFilter.SHOW_TEXT);
       const textNodes = [];
-      for (let current = walker.currentNode; current; current = walker.nextNode()) {
+      for (let current = walker.nextNode(); current; current = walker.nextNode()) {
         if (isHighlightTargetNode(current)) {
           textNodes.push(current);
         }
