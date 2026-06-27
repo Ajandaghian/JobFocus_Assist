@@ -539,8 +539,8 @@ p {
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 9px;
-  min-height: 38px;
+  gap: 7px;
+  min-height: 30px;
   margin-top: 16px;
 }
 
@@ -548,14 +548,15 @@ p {
   display: inline-flex;
   align-items: center;
   max-width: 100%;
-  gap: 8px;
-  padding: 8px 11px;
+  gap: 6px;
+  padding: 6px 9px;
   color: #014eb7;
   background: var(--blue-soft);
   border: 1px solid #c9dcff;
   border-radius: 6px;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 700;
+  line-height: 1;
 }
 
 .chip.exclude {
@@ -570,8 +571,8 @@ p {
 
 .chip button {
   display: grid;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   place-items: center;
   padding: 0;
   color: currentColor;
@@ -584,6 +585,11 @@ p {
 .chip button:hover,
 .chip button:focus-visible {
   background: rgba(1, 78, 183, 0.1);
+}
+
+.chip button img {
+  width: 10px;
+  height: 10px;
 }
 
 .chip-count {
