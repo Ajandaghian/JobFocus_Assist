@@ -36,3 +36,16 @@
   filter: saturate(0.82) brightness(0.99);
   opacity: 0.92;
 }
+
+.jfa-jd-highlight {
+  display: inline;
+  padding: 0 2px;
+  margin: 0 -1px;
+  border-radius: 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease;
+}

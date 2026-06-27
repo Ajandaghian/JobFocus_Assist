@@ -1,6 +1,6 @@
 # JobFocus Assist
 
-JobFocus Assist is a minimal Chrome extension that restyles LinkedIn job result cards based only on the state already visible in LinkedIn.
+JobFocus Assist is a minimal Chrome extension that restyles LinkedIn job result cards and highlights keywords inside the opened LinkedIn job description based only on the state already visible in LinkedIn.
 
 > *JobFocus Assist: LinkedIn Job Search Visual Helper*
 ![JobFocus Assist Logo](assets/brand/jobfocus-assist-lockup.png)
@@ -11,6 +11,7 @@ JobFocus Assist is a minimal Chrome extension that restyles LinkedIn job result 
 - Detects LinkedIn job cards
 - Mutes cards marked `Viewed`
 - Marks cards marked `Applied`
+- Highlights matched keywords inside the open JD using user-defined local rules
 - Leaves all other cards unchanged
 - Re-runs automatically as LinkedIn updates the job list
 
@@ -20,7 +21,8 @@ JobFocus Assist is a minimal Chrome extension that restyles LinkedIn job result 
 
 - No job data is stored
 - No LinkedIn content is uploaded
-- Only extension preferences are stored locally in Chrome storage
+- Only extension preferences and keyword rules are stored locally in Chrome storage
+- Keyword highlighting applies only to the open JD and never uploads page content
 
 See the full policy in [docs/privacy-policy.md](docs/privacy-policy.md).
 

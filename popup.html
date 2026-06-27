@@ -30,7 +30,13 @@
           </div>
 
           <div class="menu-anchor">
-            <button id="menu-button" class="icon-button" type="button" aria-label="Open status menu" aria-expanded="false">
+            <button
+              id="menu-button"
+              class="icon-button"
+              type="button"
+              aria-label="Open status menu"
+              aria-expanded="false"
+            >
               <span class="icon" data-icon="moreVertical"></span>
             </button>
 
@@ -97,7 +103,69 @@
               </label>
             </div>
           </article>
+        </section>
 
+        <section class="section section--keywords">
+          <div class="section-heading-row">
+            <div class="section-heading">Keyword rules</div>
+            <button id="keyword-rule-add" class="add-rule-button" type="button">
+              <span class="icon icon--small" data-icon="plus"></span>
+              <span>Add rule</span>
+            </button>
+          </div>
+
+          <div id="keyword-editor" class="keyword-editor" hidden>
+            <div class="keyword-editor__toprow">
+              <div class="keyword-editor__field keyword-editor__field--keywords">
+                <label class="keyword-editor__label" for="keyword-input">Keywords</label>
+                <input
+                  id="keyword-input"
+                  class="keyword-editor__input"
+                  type="text"
+                  placeholder="React, TypeScript, AWS"
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+              </div>
+
+              <div class="keyword-editor__field keyword-editor__field--color">
+                <div class="keyword-editor__label">Color</div>
+                <div class="color-dropdown">
+                  <button
+                    id="keyword-color-button"
+                    class="color-dropdown__button"
+                    type="button"
+                    aria-label="Rule color"
+                    aria-expanded="false"
+                  >
+                    <span id="keyword-color-swatch" class="color-dropdown__swatch" aria-hidden="true"></span>
+                    <span class="color-dropdown__chevron" aria-hidden="true" data-icon="chevronDown"></span>
+                  </button>
+
+                  <div id="keyword-color-palette" class="color-palette" hidden role="radiogroup" aria-label="Rule color"></div>
+                </div>
+              </div>
+
+              <div class="keyword-editor__field keyword-editor__field--actions" aria-label="Editor actions">
+                <button id="keyword-editor-cancel" class="editor-icon-button editor-icon-button--secondary" type="button" aria-label="Cancel editing">
+                  <span class="icon icon--small" data-icon="x"></span>
+                </button>
+                <button id="keyword-editor-save" class="editor-icon-button editor-icon-button--primary" type="button" aria-label="Save rule">
+                  <span class="icon icon--small" data-icon="check"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="keyword-empty" class="keyword-empty" hidden>
+            <div class="keyword-empty__icon" aria-hidden="true">
+              <span class="icon icon--small" data-icon="search"></span>
+            </div>
+            <div class="keyword-empty__title">No keyword rules yet</div>
+            <div class="keyword-empty__copy">Add rules to highlight keywords in job descriptions.</div>
+          </div>
+
+          <div id="keyword-list" class="keyword-list" hidden></div>
         </section>
 
         <section class="section section--about">
