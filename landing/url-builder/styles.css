@@ -498,7 +498,28 @@ p {
 }
 
 .add-group-button {
+  min-height: 38px;
+  padding: 0 12px;
+  color: #3e4c63;
+  background: #f8fafc;
+  border-color: #d7dfeb;
+  box-shadow: none;
+  font-size: 0.88rem;
+  font-weight: 700;
   justify-self: center;
+}
+
+.add-group-button img {
+  width: 15px;
+  height: 15px;
+  filter: invert(46%) sepia(12%) saturate(486%) hue-rotate(178deg) brightness(92%) contrast(88%);
+}
+
+.add-group-button:hover,
+.add-group-button:focus-visible {
+  color: #2f3d53;
+  background: #f2f5f9;
+  border-color: #c9d3e1;
 }
 
 .term-input,
