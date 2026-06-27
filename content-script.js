@@ -78,6 +78,30 @@
     return String(value || "").replace(/\s+/g, " ").trim();
   }
 
+  function readVisibleState(root) {
+    const footerStateNodes = root.querySelectorAll(STATE_SELECTORS);
+    for (const node of footerStateNodes) {
+      const text = normalizeText(node.textContent);
+      if (text === "Applied") {
+        return "applied";
+      }
+      if (text === "Viewed") {
+        return "viewed";
+      }
+    }
+
+    // LinkedIn occasionally reshuffles the footer markup; fall back to the card text.
+    const cardText = normalizeText(root.textContent);
+    if (cardText.includes("Applied")) {
+      return "applied";
+    }
+    if (cardText.includes("Viewed")) {
+      return "viewed";
+    }
+
+    return null;
+  }
+
   function isVisibleElement(element) {
     if (!(element instanceof HTMLElement)) {
       return false;
