@@ -359,6 +359,36 @@ p {
   gap: 14px;
 }
 
+.keyword-sections {
+  display: grid;
+  gap: 18px;
+}
+
+.keyword-section {
+  display: grid;
+  gap: 14px;
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.section-head p,
+.section-copy {
+  margin: 7px 0 0;
+  color: #394b6a;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.add-group-row {
+  display: flex;
+  justify-content: center;
+}
+
 .keyword-group {
   padding: 16px;
   background: #fbfdff;
@@ -420,15 +450,21 @@ p {
 }
 
 .icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
   min-height: 38px;
-  padding: 0 10px;
+  padding: 0;
   color: #4b5b73;
   background: #fff;
   border: 1px solid #d2ddea;
   border-radius: 6px;
-  font-size: 0.82rem;
-  font-weight: 760;
   cursor: pointer;
+}
+
+.icon-button img {
+  width: 16px;
+  height: 16px;
 }
 
 .icon-button:disabled {
@@ -459,6 +495,10 @@ p {
 .secondary-button img {
   width: 17px;
   height: 17px;
+}
+
+.add-group-button {
+  justify-self: center;
 }
 
 .term-input,
@@ -959,7 +999,7 @@ p {
 
 .geo-steps {
   display: grid;
-  grid-template-columns: 1fr 1fr 1.2fr 1.6fr;
+  grid-template-columns: 1fr 1fr 1fr 1.15fr;
   gap: 20px;
   align-items: stretch;
 }
@@ -967,21 +1007,26 @@ p {
 .geo-step {
   position: relative;
   min-width: 0;
-  padding-left: 44px;
+  padding-left: 46px;
+  padding-right: 18px;
   border-right: 1px solid var(--line);
+}
+
+.geo-step:nth-child(3) {
+  border-right: 0;
 }
 
 .geo-step strong {
   display: block;
   margin-bottom: 8px;
-  font-size: 0.92rem;
+  font-size: 1rem;
 }
 
 .geo-step p {
-  min-height: 42px;
-  margin: 0 0 14px;
+  min-height: 52px;
+  margin: 0 0 16px;
   color: var(--muted);
-  font-size: 0.84rem;
+  font-size: 0.92rem;
   line-height: 1.45;
 }
 
@@ -990,13 +1035,13 @@ p {
   left: 0;
   top: 0;
   display: grid;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   place-items: center;
   color: #fff;
   background: var(--blue);
   border-radius: 999px;
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   font-weight: 850;
 }
 
@@ -1006,14 +1051,14 @@ p {
   display: flex;
   align-items: center;
   gap: 8px;
-  min-height: 44px;
-  padding: 9px 10px;
+  min-height: 54px;
+  padding: 12px 12px;
   background: #fff;
   border: 1px solid #d6e1ef;
-  border-radius: 6px;
-  box-shadow: 0 8px 20px rgba(26, 48, 78, 0.08);
+  border-radius: 10px;
+  box-shadow: 0 10px 22px rgba(26, 48, 78, 0.08);
   color: #243858;
-  font-size: 0.8rem;
+  font-size: 0.88rem;
 }
 
 .brand-mark.small {
@@ -1073,19 +1118,24 @@ mark {
 .guide-visual {
   margin: 0;
   text-align: center;
+  align-self: stretch;
+  display: grid;
+  align-content: center;
+  justify-items: stretch;
 }
 
 .guide-art {
   width: 100%;
+  max-width: 100%;
   border: 1px solid #d8e3ef;
   border-radius: 8px;
   box-shadow: 0 14px 34px rgba(26, 48, 78, 0.13);
 }
 
 .guide-visual figcaption {
-  margin-top: 10px;
+  margin-top: 12px;
   color: #394b6a;
-  font-size: 0.86rem;
+  font-size: 0.97rem;
   line-height: 1.45;
 }
 
@@ -1154,6 +1204,10 @@ mark {
   .geo-step:nth-child(2) {
     border-right: 0;
   }
+
+  .geo-step:nth-child(3) {
+    border-right: 1px solid var(--line);
+  }
 }
 
 @media (max-width: 760px) {
@@ -1204,6 +1258,11 @@ mark {
 
   .mode-line,
   .url-card-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .section-head {
     flex-direction: column;
     align-items: stretch;
   }
@@ -1383,7 +1442,8 @@ mark {
 }
 
 .geo-dialog {
-  width: min(980px, calc(100vw - 32px));
+  width: min(1540px, calc(100vw - 24px));
+  max-height: calc(100vh - 24px);
   padding: 0;
   border: 0;
   background: transparent;
@@ -1396,19 +1456,20 @@ mark {
 
 .geo-dialog__panel {
   display: grid;
-  gap: 18px;
-  padding: 24px;
+  gap: 22px;
+  padding: 40px 44px 34px;
   background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 28px;
   box-shadow: var(--shadow);
+  overflow: auto;
 }
 
 .geo-dialog__head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: 24px;
 }
 
 .dialog-eyebrow {
@@ -1422,13 +1483,13 @@ mark {
 
 .geo-dialog__head h2 {
   margin: 0 0 8px;
-  font-size: 1.2rem;
+  font-size: 1.38rem;
 }
 
 .geo-dialog__head p:last-child {
   margin: 0;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 1rem;
   line-height: 1.45;
 }
 
@@ -1439,6 +1500,7 @@ mark {
 .geo-dialog__footer {
   display: flex;
   justify-content: flex-end;
+  padding-top: 4px;
 }
 
 .dialog-primary {
@@ -1485,6 +1547,7 @@ mark {
 
   .geo-dialog {
     width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
   }
 
   .geo-dialog__panel {

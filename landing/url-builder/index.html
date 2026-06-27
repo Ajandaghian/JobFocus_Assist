@@ -8,7 +8,7 @@
       name="description"
       content="Build LinkedIn Jobs search URLs from keyword groups, exclusions, geoId, recency, and sort. Client-side only."
     >
-    <link rel="stylesheet" href="./styles.css?v=advanced-boolean-2">
+    <link rel="stylesheet" href="./styles.css?v=advanced-boolean-3">
   </head>
   <body>
     <header class="topbar">
@@ -55,38 +55,44 @@
             </aside>
 
             <div class="row-main">
-              <div class="mode-line">
-                <div>
-                  <span class="field-label">Advanced Boolean groups</span>
-                  <p>Terms inside a group use that group's AND/OR mode. Empty groups are ignored, then the finished groups are joined together.</p>
-                </div>
-                <div class="segmented compact-segmented" role="radiogroup" aria-label="Join groups with">
-                  <label>
-                    <input type="radio" name="groupJoin" value="AND" checked>
-                    <span>Groups AND</span>
-                  </label>
-                  <label>
-                    <input type="radio" name="groupJoin" value="OR">
-                    <span>Groups OR</span>
-                  </label>
-                </div>
-              </div>
+              <div class="keyword-sections">
+                <section class="keyword-section keyword-section--include" aria-labelledby="include-keywords-title">
+                  <div class="section-head">
+                    <div>
+                      <span class="field-label" id="include-keywords-title">Include keywords</span>
+                      <p>Build one or more keyword groups. Use AND or OR inside each group, then choose how the groups combine.</p>
+                    </div>
+                    <div class="segmented compact-segmented" role="radiogroup" aria-label="Join groups with">
+                      <label>
+                        <input type="radio" name="groupJoin" value="AND" checked>
+                        <span>Groups AND</span>
+                      </label>
+                      <label>
+                        <input type="radio" name="groupJoin" value="OR">
+                        <span>Groups OR</span>
+                      </label>
+                    </div>
+                  </div>
 
-              <div class="group-stack" id="group-stack" aria-live="polite"></div>
+                  <div class="group-stack" id="group-stack" aria-live="polite"></div>
 
-              <button class="secondary-button add-group-button" id="add-group-button" type="button">
-                <img src="./assets/icons/plus.svg" alt="">
-                Add keyword group
-              </button>
+                  <div class="add-group-row">
+                    <button class="secondary-button add-group-button" id="add-group-button" type="button">
+                      <img src="./assets/icons/plus.svg" alt="">
+                      Add keyword group
+                    </button>
+                  </div>
+                </section>
 
-              <div class="divider"></div>
-
-              <div class="term-block">
-                <label class="field-label" for="exclude-input">Exclude keywords</label>
-                <input id="exclude-input" class="term-input" type="text" autocomplete="off" placeholder="Type an exclusion and press Enter">
-                <p class="hint">Optional. Exclusions are appended as <code>NOT</code> terms.</p>
-                <div class="chips" id="exclude-chips" aria-live="polite"></div>
-                <p class="chip-count" id="exclude-hint"></p>
+                <section class="keyword-section keyword-section--exclude" aria-labelledby="exclude-keywords-title">
+                  <div class="term-block">
+                    <span class="field-label" id="exclude-keywords-title">Exclude keywords</span>
+                    <p class="section-copy">Optional. Exclusions are appended as <code>NOT</code> terms.</p>
+                    <input id="exclude-input" class="term-input" type="text" autocomplete="off" placeholder="Type an exclusion and press Enter">
+                    <div class="chips" id="exclude-chips" aria-live="polite"></div>
+                    <p class="chip-count" id="exclude-hint"></p>
+                  </div>
+                </section>
               </div>
 
               <div class="boolean-preview">
@@ -109,7 +115,6 @@
               <label class="field-block">
                 <span class="field-label">Location value</span>
                 <input id="geo-id" type="text" inputmode="text" value="103644278" autocomplete="off" placeholder="geoId or location name">
-                <span class="error-text" id="geo-error" role="alert"></span>
               </label>
               <p class="field-note">Use a numeric geoId or a LinkedIn location name. <button class="text-link" type="button" data-open-guide>Open the guide</button></p>
             </div>
@@ -126,9 +131,9 @@
 
             <div class="row-main compact-main">
               <div class="button-group" role="radiogroup" aria-label="Recency">
-                <label><input type="radio" name="recency" value="1"><span>24 hours</span></label>
+                <label><input type="radio" name="recency" value="1" checked><span>24 hours</span></label>
                 <label><input type="radio" name="recency" value="3"><span>3 days</span></label>
-                <label><input type="radio" name="recency" value="7" checked><span><img src="./assets/icons/calendar-days.svg" alt=""> 7 days</span></label>
+                <label><input type="radio" name="recency" value="7"><span>7 days</span></label>
                 <label><input type="radio" name="recency" value="custom"><span>Custom</span></label>
               </div>
               <label class="custom-days" id="custom-days-wrap">
@@ -185,17 +190,6 @@
         </aside>
       </section>
 
-      <section class="guide guide--compact" id="geo-guide" aria-labelledby="guide-title">
-        <div class="guide-compact">
-          <span class="row-icon"><img src="./assets/icons/circle-help.svg" alt=""></span>
-          <div>
-            <h2 id="guide-title">How to find location values</h2>
-            <p>Open the popup for geoId and location-name steps.</p>
-          </div>
-          <button class="guide-launch-button" type="button" data-open-guide>Open guide</button>
-        </div>
-      </section>
-
       <dialog id="geo-guide-dialog" class="geo-dialog" aria-labelledby="geo-guide-dialog-title">
         <form method="dialog" class="geo-dialog__panel">
           <div class="geo-dialog__head">
@@ -230,7 +224,6 @@
               <span class="step-number">3</span>
               <strong>Copy the geoId</strong>
               <p>If you want the numeric version, copy the value after <code>geoId=</code> in the LinkedIn URL.</p>
-              <div class="mini-url">...&amp;geoId=<mark>103644278</mark>&amp;f_TPR=...</div>
             </article>
 
             <figure class="guide-visual">
@@ -253,6 +246,6 @@
       </footer>
     </main>
 
-    <script src="./app.js?v=advanced-boolean-2" defer></script>
+    <script src="./app.js?v=advanced-boolean-3" defer></script>
   </body>
 </html>

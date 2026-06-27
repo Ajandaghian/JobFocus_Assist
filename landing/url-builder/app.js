@@ -7,7 +7,7 @@
     groupJoin: "AND",
     excludeTerms: [],
     geoId: "103644278",
-    recencyDays: 7,
+    recencyDays: 1,
     sortBy: "DD",
     lastCopiedUrl: "",
   };
@@ -24,11 +24,9 @@
     excludeHint: document.querySelector("#exclude-hint"),
     keywordPreview: document.querySelector("#keyword-preview"),
     geoId: document.querySelector("#geo-id"),
-    geoError: document.querySelector("#geo-error"),
     recencyCopy: document.querySelector("#recency-copy"),
     customDaysWrap: document.querySelector("#custom-days-wrap"),
     customDays: document.querySelector("#custom-days"),
-    sortCopy: document.querySelector("#sort-copy"),
     statusText: document.querySelector("#status-text"),
     generatedUrl: document.querySelector("#generated-url"),
     copyButton: document.querySelector("#copy-button"),
@@ -36,8 +34,6 @@
     resetButton: document.querySelector("#reset-button"),
     booleanPreview: document.querySelector(".boolean-preview"),
     guideDialog: document.querySelector("#geo-guide-dialog"),
-    geoHelp: document.querySelector(".geo-help"),
-    geoHelpLabel: document.querySelector(".guide-summary-copy"),
   };
 
   function normalizeTerm(term) {
@@ -190,7 +186,7 @@
       removeButton.type = "button";
       removeButton.disabled = state.groups.length === 1;
       removeButton.setAttribute("aria-label", `Remove group ${index + 1}`);
-      removeButton.textContent = "Remove";
+      removeButton.innerHTML = '<img src="./assets/icons/x.svg" alt="">';
       removeButton.addEventListener("click", () => {
         state.groups = state.groups.filter((item) => item.id !== group.id);
         render();
@@ -280,7 +276,6 @@
     if (elements.booleanPreview instanceof HTMLElement) {
       elements.booleanPreview.classList.toggle("is-empty", !keywordExpression);
     }
-    elements.geoError.textContent = state.geoId.trim() ? "" : "Enter a geoId or location name.";
     elements.recencyCopy.textContent = `Show jobs posted in the last ${state.recencyDays} ${
       Number(state.recencyDays) === 1 ? "day" : "days"
     }.`;
@@ -300,7 +295,7 @@
     elements.customDays.value = "14";
     elements.customDaysWrap.classList.remove("is-visible");
     document.querySelector('input[name="groupJoin"][value="AND"]').checked = true;
-    document.querySelector('input[name="recency"][value="7"]').checked = true;
+    document.querySelector('input[name="recency"][value="1"]').checked = true;
     document.querySelector('input[name="sortBy"][value="DD"]').checked = true;
     render();
   }
@@ -367,15 +362,6 @@
     state.lastCopiedUrl = elements.generatedUrl.value;
     render();
   });
-
-  if (elements.geoHelp && elements.geoHelpLabel) {
-    const syncGeoHelpLabel = () => {
-      elements.geoHelpLabel.textContent = elements.geoHelp.open ? "Hide steps" : "Show steps";
-    };
-
-    elements.geoHelp.addEventListener("toggle", syncGeoHelpLabel);
-    syncGeoHelpLabel();
-  }
 
   render();
 })();
