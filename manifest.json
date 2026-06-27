@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "JobFocus Assist: Cleaner LinkedIn Job Search",
+  "name": "JobFocus Assist: LinkedIn Job Search Visual Helper",
   "version": "1.0.0",
   "description": "JobFocus Assist makes viewed jobs less prominent and applied jobs look completed on LinkedIn job search pages.",
   "homepage_url": "https://github.com/Ajandaghian/JobFocus_Assist",

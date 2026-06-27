@@ -10,7 +10,7 @@ Do not add job-data persistence, custom tracking, notes, CRM features, or applic
 
 LinkedIn is the source of truth. The extension should read visible page text/state and apply presentation changes only.
 
-## MVP Behavior
+## Behavior
 
 - Detect LinkedIn job result cards.
 - If a card contains `Viewed`, apply a muted/disabled style.
@@ -50,14 +50,3 @@ Possible later features include keyword highlighting in job descriptions, advanc
 - No user job data is stored by the extension.
 - Popup preferences persist across reopen and browser refresh.
 
-## PPM product/design workflow
-
-- Use `ppm-project-setup` when project product/design structure is missing or stale.
-- Use `ppm-product-discovery` before PRD or UI design.
-- Use `ppm-prd-writer` before visual design or implementation.
-- Use `ppm-visual-design-explorer` to generate image-based design directions before coding.
-- Use `ppm-design-critic` to compare design directions and select/revise one.
-- Use `ppm-dev-handoff-designer` only if a deeper handoff is requested.
-- Implement from `product/prd.md`, the selected popup state-flow image, and brand assets.
-- Use `ppm-acceptance-reviewer` before accepting or shipping the feature.
-- Do not silently promote feature-specific design choices into `design/system/`; ask first.
